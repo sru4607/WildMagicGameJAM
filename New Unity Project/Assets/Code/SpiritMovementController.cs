@@ -37,6 +37,7 @@ public class SpiritMovementController : MonoBehaviour {
         sSpeed = baseSpeed * sSpeedMult;
         currentSpeed = baseSpeed;
         rb.velocity = Vector3.zero;
+		rb.angularDrag = float.PositiveInfinity;
         gameObject.GetComponent<MeshRenderer>().enabled = false;
         gameObject.GetComponent<SphereCollider>().enabled = false;
 
@@ -44,52 +45,33 @@ public class SpiritMovementController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        playerAnimator.enabled = true;
         if (activated) {
-
             float deltaSpeed = Input.GetAxis("Vertical");
             float rotation = (Input.GetAxis("Horizontal") * turnSpeed);
             ChangeSpeed(deltaSpeed);
-
-
             transform.Rotate(0, rotation, 0);
             rb.velocity = transform.forward * currentSpeed;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)){
-            if(!possessing)
-            {
-                activated = !activated;
-                gameObject.GetComponent<MeshRenderer>().enabled = activated;
-                gameObject.GetComponent<SphereCollider>().enabled = activated;
-                playerControl.enabled = !activated;
-                playerControlChar.enabled = !activated;
-                if(activated)
-                    playerAnimator.SetFloat("Forward", 0.0f);
-
-
-
-
-            }
-            if(possessing)
-            {
-                activated = false;
-                possessing = false;
-                gameObject.GetComponent<MeshRenderer>().enabled = false;
-                gameObject.GetComponent<SphereCollider>().enabled = false;
-                playerControl.enabled = true;
-                playerControlChar.enabled = true;
-                gameObject.transform.position = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, gameObject.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
-            }
+        if (Input.GetKeyDown(KeyCode.Space)) {
+			if (possessing) {
+				LeavePossess();
+				return;
+			}
+			if (!activated) {
+				Activate();
+			} else {
+				SetActive(false);
+			}
         }
-        if(!activated && !possessing)
-        {
-            gameObject.transform.position = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x,gameObject.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
-            
-        }
-
-        
     }
+
+	private void Activate() {
+		Transform playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+		gameObject.transform.position = new Vector3(playerTransform.position.x, gameObject.transform.position.y, playerTransform.position.z);
+		gameObject.transform.rotation = playerTransform.rotation;
+		SetActive(true);
+	}
 
     private void ChangeSpeed(float deltaSpeed) {
         if (deltaSpeed == 0) {
@@ -127,13 +109,37 @@ public class SpiritMovementController : MonoBehaviour {
         if(collision.gameObject.GetComponent<PossessableObject>() != null)
         {
             collision.gameObject.GetComponent<PossessableObject>().OnPossess();
-            possessing = true;
-            activated = false;
-            gameObject.GetComponent<MeshRenderer>().enabled = false;
-            gameObject.GetComponent<SphereCollider>().enabled = false;
+			OnPossess();
         }
     }
 
+	private void SetActive(bool active) {
+		activated = active;
+		gameObject.GetComponent<MeshRenderer>().enabled = active;
+		gameObject.GetComponent<SphereCollider>().enabled = active;
+		playerControl.enabled = !active;
+		playerControlChar.enabled = !active;
+		if (active)
+			playerAnimator.SetFloat("Forward", 0.0f);
+	}
+
+	private void OnPossess() {
+		possessing = true;
+		SetActive(false);
+		playerControl.enabled = false;
+		playerControlChar.enabled = false;
+		playerAnimator.SetFloat("Forward", 0.0f);
+	}
+
+	private void LeavePossess() {
+		activated = false;
+		possessing = false;
+		gameObject.GetComponent<MeshRenderer>().enabled = false;
+		gameObject.GetComponent<SphereCollider>().enabled = false;
+		playerControl.enabled = true;
+		playerControlChar.enabled = true;
+		gameObject.transform.position = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, gameObject.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
+	}
 
 
 

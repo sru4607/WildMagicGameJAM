@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PossessedTorch : PossessableObject
+public class PossessedTorch : MonoBehaviour
 {
 
     public GameObject flame;
@@ -13,21 +13,20 @@ public class PossessedTorch : PossessableObject
         startScale = gameObject.transform.localScale;   
     }
 
+	public void OnActionKeyPress() {
+		flame.transform.localScale = new Vector3(startScale.x * 5, startScale.y * 5, startScale.z * 5);
+		flame.transform.localScale = startScale;
+	}
+
     // Update is called once per frame
     void Update()
     {
-        PossessAction();
+        //PossessAction();
     }
-
+	/*
     public override void PossessAction()
     {
-        if(Possessed && Input.GetKey(KeyCode.E))
-        {
-            flame.transform.localScale = new Vector3(startScale.x * 5, startScale.y * 5, startScale.z * 5);
-        }
-        else
-        {
-            flame.transform.localScale = startScale;
-        }
+
     }
+	*/
 }

@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public abstract class PossessableObject : MonoBehaviour
+public class PossessableObject : MonoBehaviour
 {
     // Inspector Assigned Variables
     // Public Variables
@@ -11,13 +12,41 @@ public abstract class PossessableObject : MonoBehaviour
     // Properties
     public bool Possessed { get { return _possessed; }  set { _possessed = value; } }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
-    public void CheckLeave()
+
+	[Header("Moveable Object")]
+	public bool Moveable;
+	public Rigidbody rb;
+	public float baseSpeed;     // Base Speed
+	public float turnSpeed;     // Turning Speed
+
+	[Header("Action Button")]
+	public UnityEvent OnActionPress;
+	public bool HasAction { get { return OnActionPress != null; } }
+
+	public void OnActionKeyPress() {
+		OnActionPress.Invoke();
+	}
+
+	public void Update() {
+		if (Possessed) {
+			if (Moveable) {
+				float speed = Input.GetAxis("Vertical");
+				float rotation = (Input.GetAxis("Horizontal") * turnSpeed);
+
+				transform.Rotate(0, rotation, 0);
+				rb.velocity = transform.forward * speed * baseSpeed;
+			}
+			if (HasAction) {
+				if (Input.GetKey(KeyCode.E)) {
+					OnActionKeyPress();
+				}
+			}
+			CheckLeave();
+		}
+	}
+
+	public void CheckLeave()
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
@@ -28,17 +57,24 @@ public abstract class PossessableObject : MonoBehaviour
     public void OnPossess()
     {
         Possessed = true;
+		if (Moveable) {
+			rb.maxAngularVelocity = 0;
+			gameObject.GetComponent<Rigidbody>().useGravity = !Possessed;
+		}
     }
-    public virtual void LeavePossess()
-    {
-        Possessed = false;
-    }
+	public void LeavePossess() {
+		Possessed = false;
+		if (Moveable) {
+			Rigidbody rb = GetComponent<Rigidbody>();
+			rb.maxAngularVelocity = float.PositiveInfinity;
+			rb.velocity = Vector3.zero;
+			rb.angularVelocity = Vector3.zero;
+			rb.useGravity = true;
+		}
+	}
 
+	public void Test() {
+		Debug.Log("TEST");
+	}
 
-    public abstract void PossessAction();
-
-    void OnTriggerEnter(Collider other)
-    {
-        OnPossess();
-    }
 }

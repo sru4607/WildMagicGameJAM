@@ -9,9 +9,10 @@ public class PossessSwitch : PossessableObject {
     // Update is called once per frame
     void Update()
     {
-        PossessAction();
+        //PossessAction();
     }
 
+	/*
     public override void PossessAction()
     {
         if (Possessed && Input.GetKeyDown(KeyCode.E))
@@ -19,4 +20,5 @@ public class PossessSwitch : PossessableObject {
             activated = true;
         }
     }
+	*/
 }

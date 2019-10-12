@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class DoorControl : MonoBehaviour
 {
-    // Inspector Assigned Variables
+	// Inspector Assigned Variables
+	public PossessedBar LockBar;
+	public DoorLockCheck leftDoor;
+	public DoorLockCheck rightDoor;
     // Public Variables
     public bool isOpen;
-    // Private Variables
+	// Private Variables
+	private bool locked;
     Animator anim;
     // Start is called before the first frame update
     void Start()
@@ -18,7 +22,7 @@ public class DoorControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isOpen && Input.GetKeyDown(KeyCode.F))
+        if (!isOpen && !leftDoor.Locked && rightDoor.Locked && Input.GetKeyDown(KeyCode.F))
         {
             Open();
         }
@@ -32,4 +36,6 @@ public class DoorControl : MonoBehaviour
             anim.SetBool("isOpen", true);
         }
     }
+
+
 }
