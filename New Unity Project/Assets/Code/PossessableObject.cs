@@ -17,12 +17,25 @@ public abstract class PossessableObject : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void CheckLeave()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            LeavePossess();
+        }
     }
 
-    public abstract void OnPossess();
+    public void OnPossess()
+    {
+        Possessed = true;
+    }
+    public virtual void LeavePossess()
+    {
+        Possessed = false;
+    }
+
+
+    public abstract void PossessAction();
 
     void OnTriggerEnter(Collider other)
     {
