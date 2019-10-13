@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
+using UnityEngine.Rendering.PostProcessing;
 
 public class SpiritMovementController : MonoBehaviour {
     [SerializeField] GameObject possessEffectPrefab;
+    [SerializeField] PostProcessProfile defaultProfile;
+    [SerializeField] PostProcessProfile spiritProfile;
     public Rigidbody rb;
-
+    
     public float baseSpeed;     // Base Speed
     public float turnSpeed;     // Turning speed
     public float wSpeedMult;    // Multiplier for speed when w is held
@@ -15,6 +18,7 @@ public class SpiritMovementController : MonoBehaviour {
 
     public bool activated;
     public bool possessing;
+    public PostProcessVolume postProcessControl;
 
     public ThirdPersonUserControl playerControl;
     public ThirdPersonCharacter playerControlChar;
@@ -34,6 +38,7 @@ public class SpiritMovementController : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        postProcessControl.profile = defaultProfile;
         wSpeed = baseSpeed * wSpeedMult;
         sSpeed = baseSpeed * sSpeedMult;
         currentSpeed = baseSpeed;
@@ -134,11 +139,13 @@ public class SpiritMovementController : MonoBehaviour {
 		playerControlChar.enabled = !active;
 		if (active)
         {
+            postProcessControl.profile = spiritProfile;
             playerAnimator.SetFloat("Forward", 0.0f);
             playerAnimator.SetBool("Praying", true);
             playerControlChar.rigidbody.velocity = Vector3.zero;
         }
         else if (!possessing) {
+            postProcessControl.profile = defaultProfile;
             playerAnimator.SetBool("Praying", false);
             cameraController.ResetCameraPos();
         }
@@ -151,7 +158,8 @@ public class SpiritMovementController : MonoBehaviour {
             GameObject possessEffect = Instantiate(possessEffectPrefab, transform.position, Quaternion.identity);
             Destroy(possessEffect, 1.0f);
         }
-		SetActive(false);
+        postProcessControl.profile = defaultProfile;
+        SetActive(false);
 		playerControl.enabled = false;
 		playerControlChar.enabled = false;
 		playerAnimator.SetFloat("Forward", 0.0f);
