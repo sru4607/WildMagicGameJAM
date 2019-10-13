@@ -16,6 +16,7 @@ public class PossessableObject : MonoBehaviour
 
 	[Header("Moveable Object")]
 	public bool Moveable;
+    public bool UseGravity;
 	public Rigidbody rb;
 	public float baseSpeed;     // Base Speed
 	public float turnSpeed;     // Turning Speed
@@ -27,6 +28,11 @@ public class PossessableObject : MonoBehaviour
 	public void OnActionKeyPress() {
 		OnActionPress.Invoke();
 	}
+
+    public void Start()
+    {
+        rb.useGravity = UseGravity;
+    }
 
 	public void Update() {
 		if (Possessed) {
@@ -57,10 +63,14 @@ public class PossessableObject : MonoBehaviour
     public void OnPossess()
     {
         Possessed = true;
-		if (Moveable) {
-			rb.maxAngularVelocity = 0;
-			gameObject.GetComponent<Rigidbody>().useGravity = !Possessed;
-		}
+        if (Moveable)
+        {
+            rb.maxAngularVelocity = 0;
+            if (!UseGravity)
+            {
+                gameObject.GetComponent<Rigidbody>().useGravity = !Possessed;
+            }
+        }
     }
 	public void LeavePossess() {
 		Possessed = false;
