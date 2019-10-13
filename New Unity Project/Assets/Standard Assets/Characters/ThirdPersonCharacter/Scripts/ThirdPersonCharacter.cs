@@ -29,6 +29,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
 
+        public Rigidbody rigidbody { get { return m_Rigidbody; } }
+
 
 		void Start()
 		{

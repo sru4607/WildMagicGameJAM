@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 
 public class SpiritMovementController : MonoBehaviour {
-
+    [SerializeField] GameObject possessEffectPrefab;
     public Rigidbody rb;
 
     public float baseSpeed;     // Base Speed
@@ -44,7 +44,7 @@ public class SpiritMovementController : MonoBehaviour {
         {
             r.enabled = false;
         }
-        gameObject.GetComponent<SphereCollider>().enabled = false;
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
 
     }
 
@@ -129,23 +129,35 @@ public class SpiritMovementController : MonoBehaviour {
         {
             r.enabled = active;
         }
-        gameObject.GetComponent<SphereCollider>().enabled = active;
+        gameObject.GetComponent<CapsuleCollider>().enabled = active;
 		playerControl.enabled = !active;
 		playerControlChar.enabled = !active;
 		if (active)
-			playerAnimator.SetFloat("Forward", 0.0f);
+        {
+            playerAnimator.SetFloat("Forward", 0.0f);
+            playerAnimator.SetBool("Praying", true);
+            playerControlChar.rigidbody.velocity = Vector3.zero;
+        }
         else if (!possessing) {
+            playerAnimator.SetBool("Praying", false);
             cameraController.ResetCameraPos();
         }
 	}
 
 	private void OnPossess() {
 		possessing = true;
+        if (possessEffectPrefab)
+        {
+            GameObject possessEffect = Instantiate(possessEffectPrefab, transform.position, Quaternion.identity);
+            Destroy(possessEffect, 1.0f);
+        }
 		SetActive(false);
 		playerControl.enabled = false;
 		playerControlChar.enabled = false;
 		playerAnimator.SetFloat("Forward", 0.0f);
-	}
+        playerAnimator.SetBool("Praying", true);
+        playerControlChar.rigidbody.velocity = Vector3.zero;
+    }
 
 	private void LeavePossess() {
 		activated = false;
@@ -155,9 +167,10 @@ public class SpiritMovementController : MonoBehaviour {
         {
             r.enabled = false;
         }
-        gameObject.GetComponent<SphereCollider>().enabled = false;
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
 		playerControl.enabled = true;
 		playerControlChar.enabled = true;
+        playerAnimator.SetBool("Praying", false);
         cameraController.ResetCameraPos();
 		gameObject.transform.position = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, gameObject.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
 	}
