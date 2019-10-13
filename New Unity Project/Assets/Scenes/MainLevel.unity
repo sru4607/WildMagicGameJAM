@@ -1203,6 +1203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Moveable: 0
+  UseGravity: 0
   rb: {fileID: 0}
   baseSpeed: 0
   turnSpeed: 0
@@ -14197,6 +14198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Moveable: 1
+  UseGravity: 0
   rb: {fileID: 1122025390}
   baseSpeed: 1
   turnSpeed: 0.2
