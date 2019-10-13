@@ -15,6 +15,7 @@ public class DoorControl : MonoBehaviour
 	private bool locked;
     Animator anim;
 	private GameObject player;
+    public bool leverOpenable;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +26,7 @@ public class DoorControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !isOpen && PlayerNear() && !leftDoor.Locked && !rightDoor.Locked)
+        if (!leverOpenable && Input.GetKeyDown(KeyCode.F) && !isOpen && PlayerNear() && !leftDoor.Locked && !rightDoor.Locked)
         {
             Open();
         }
@@ -43,6 +44,11 @@ public class DoorControl : MonoBehaviour
 	private bool PlayerNear() {
 		return Vector3.Distance(transform.position, player.transform.position) < proximity;
 	}
+
+    public void LeverOpen()
+    {
+        Open();
+    }
 
 
 }
