@@ -139,7 +139,6 @@ public class SpiritMovementController : MonoBehaviour {
 		playerControlChar.enabled = !active;
 		if (active)
         {
-            postProcessControl.profile = spiritProfile;
             playerAnimator.SetFloat("Forward", 0.0f);
             playerAnimator.SetBool("Praying", true);
             playerControlChar.rigidbody.velocity = Vector3.zero;

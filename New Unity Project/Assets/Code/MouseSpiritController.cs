@@ -28,7 +28,6 @@ public class MouseSpiritController : MonoBehaviour
             r.enabled = false;
         }
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
-        Activate();
     }
 
     // Update is called once per frame
@@ -80,11 +79,10 @@ public class MouseSpiritController : MonoBehaviour
         if (active) {
             playerAnimator.SetFloat("Forward", 0.0f);
             playerAnimator.SetBool("Praying", true);
-            playerControlChar.rigidbody.velocity = Vector3.zero;
+            playerControlChar.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
         else if (!possessing) {
             playerAnimator.SetBool("Praying", false);
-            cameraController.ResetCameraPos();
         }
     }
 
@@ -121,6 +119,7 @@ public class MouseSpiritController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         Physics.Raycast(ray, out hit);
+        Debug.Log(hit.transform.gameObject.name);
         GetComponent<NavMeshAgent>().destination = hit.point;
     }
 }
