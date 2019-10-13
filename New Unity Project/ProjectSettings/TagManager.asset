@@ -23,7 +23,7 @@ TagManager:
   - MoveableObject
   - Zone
   - MoodLightingEffected
-  - 
+  - SpiritPassable
   - 
   - 
   - 
