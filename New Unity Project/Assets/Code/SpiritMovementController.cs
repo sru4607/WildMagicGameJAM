@@ -44,7 +44,6 @@ public class SpiritMovementController : MonoBehaviour {
         {
             r.enabled = false;
         }
-        GetComponent<MeshRenderer>().enabled = false;
         BlueOverlay.GetComponent<MeshRenderer>().enabled = false;
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
 
@@ -131,7 +130,6 @@ public class SpiritMovementController : MonoBehaviour {
         {
             r.enabled = active;
         }
-        GetComponent<MeshRenderer>().enabled = active;
         BlueOverlay.GetComponent<MeshRenderer>().enabled = active;
         gameObject.GetComponent<CapsuleCollider>().enabled = active;
 		playerControl.enabled = !active;
@@ -166,7 +164,6 @@ public class SpiritMovementController : MonoBehaviour {
 	private void LeavePossess() {
 		activated = false;
 		possessing = false;
-        GetComponent<MeshRenderer>().enabled = false;
         BlueOverlay.GetComponent<MeshRenderer>().enabled = false;
         SkinnedMeshRenderer[] renderers = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer r in renderers)

@@ -19,7 +19,7 @@ public class PossessableObject : MonoBehaviour
 	public Rigidbody rb;
 	public float baseSpeed;     // Base Speed
 	public float turnSpeed;     // Turning Speed
-
+    public float distCheck;
 	[Header("Action Button")]
 	public UnityEvent OnActionPress;
 	public bool HasAction { get { return OnActionPress != null; } }
@@ -44,6 +44,8 @@ public class PossessableObject : MonoBehaviour
 			}
 			CheckLeave();
 		}
+        else
+            CheckDist();
 	}
 
 	public void CheckLeave()
@@ -61,6 +63,30 @@ public class PossessableObject : MonoBehaviour
 			rb.maxAngularVelocity = 0;
 			gameObject.GetComponent<Rigidbody>().useGravity = !Possessed;
 		}
+        EnableShader[] shaders = GetComponentsInChildren<EnableShader>();
+        foreach(EnableShader s in shaders)
+        {
+            s.activate();
+        }
+    }
+    public void CheckDist()
+    {
+        EnableShader[] shaders = GetComponentsInChildren<EnableShader>();
+        if ((GameObject.FindGameObjectWithTag("Spirit").transform.position - gameObject.transform.position).sqrMagnitude <= distCheck)
+        {
+            foreach (EnableShader s in shaders)
+            {
+                s.activateClose();
+            }
+        }
+        else
+        {
+            foreach (EnableShader s in shaders)
+            {
+                s.deactivateClose();
+            }
+        }
+
     }
 	public void LeavePossess() {
 		Possessed = false;
@@ -71,6 +97,11 @@ public class PossessableObject : MonoBehaviour
 			rb.angularVelocity = Vector3.zero;
 			rb.useGravity = true;
 		}
-	}
+        EnableShader[] shaders = GetComponentsInChildren<EnableShader>();
+        foreach (EnableShader s in shaders)
+        {
+            s.disable();
+        }
+    }
 
 }
