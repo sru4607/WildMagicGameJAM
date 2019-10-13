@@ -5,15 +5,16 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
 
     public List<Transform> CameraPositions;
-    public List<BoxCollider> CameraZone;
     public float TransitionSpeed;
     public float RotationSpeed;
     public SpiritMovementController spirit;
 
-    private int currentPos;
+    private int playerPos = 0;
+    private int currentPos = 0;
 
     public void SetPlayerPos(int ZoneNum) {
-        if (!spirit.gameObject.activeInHierarchy) {
+        playerPos = ZoneNum;
+        if (!spirit.GetComponent<MeshRenderer>().enabled) {
             MoveToPosition(ZoneNum);
         }
     }
@@ -37,9 +38,20 @@ public class CameraController : MonoBehaviour {
     }
 
     private IEnumerator MoveCamera(Transform targetPos) {
-        transform.position = Vector3.MoveTowards(transform.position, targetPos.position, TransitionSpeed * Time.deltaTime);
-        transform.rotation = Quaternion.Euler(Vector3.RotateTowards(transform.rotation.eulerAngles, targetPos.rotation.eulerAngles, 6, RotationSpeed * Time.deltaTime));
-        return new WaitUntil(() => transform.position == targetPos.transform.position);
+        //GetComponent<Camera>().
+        float transitionedTime = TransitionSpeed;
+        while (transform.position.z != targetPos.transform.position.z) { 
+            Vector3 toMove = Vector3.Lerp(transform.position, targetPos.transform.position, Time.deltaTime / transitionedTime);
+            transitionedTime -= Time.deltaTime;
+            transform.position = toMove;
+            //transform.position = Vector3.MoveTowards(transform.position, targetPos.position, TransitionSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Euler(Vector3.RotateTowards(transform.rotation.eulerAngles, targetPos.rotation.eulerAngles, 6, RotationSpeed * Time.deltaTime));
+            yield return null;
+        }
+    }
+
+    public void ResetCameraPos() {
+        MoveToPosition(playerPos);
     }
 
 }

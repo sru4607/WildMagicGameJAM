@@ -19,6 +19,7 @@ public class SpiritMovementController : MonoBehaviour {
     public ThirdPersonUserControl playerControl;
     public ThirdPersonCharacter playerControlChar;
     public Animator playerAnimator;
+    public CameraController cameraController;
 
     private float wSpeed;
     private float sSpeed;
@@ -51,8 +52,9 @@ public class SpiritMovementController : MonoBehaviour {
             ChangeSpeed(deltaSpeed);
             transform.Rotate(0, rotation, 0);
             rb.velocity = transform.forward * currentSpeed;
+        } else {
+            transform.position = GameObject.FindGameObjectWithTag("Player").transform.position;
         }
-
         if (Input.GetKeyDown(KeyCode.Space)) {
 			if (possessing) {
 				LeavePossess();
@@ -107,10 +109,11 @@ public class SpiritMovementController : MonoBehaviour {
         {
             HitWall();
         }
-        if (collision.gameObject.GetComponent<PossessableObject>() != null)
-        {
-            collision.gameObject.GetComponent<PossessableObject>().OnPossess();
-            OnPossess();
+        if (collision.gameObject.GetComponent<PossessableObject>() != null) {
+            if (!possessing) {
+                collision.gameObject.GetComponent<PossessableObject>().OnPossess();
+                OnPossess();
+            }
         }
     }
 
@@ -123,6 +126,9 @@ public class SpiritMovementController : MonoBehaviour {
 		playerControlChar.enabled = !active;
 		if (active)
 			playerAnimator.SetFloat("Forward", 0.0f);
+        else if (!possessing) {
+            cameraController.ResetCameraPos();
+        }
 	}
 
 	private void OnPossess() {
@@ -140,6 +146,7 @@ public class SpiritMovementController : MonoBehaviour {
 		gameObject.GetComponent<SphereCollider>().enabled = false;
 		playerControl.enabled = true;
 		playerControlChar.enabled = true;
+        cameraController.ResetCameraPos();
 		gameObject.transform.position = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, gameObject.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
 	}
 

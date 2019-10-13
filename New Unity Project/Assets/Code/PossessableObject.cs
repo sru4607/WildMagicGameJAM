@@ -73,8 +73,4 @@ public class PossessableObject : MonoBehaviour
 		}
 	}
 
-	public void Test() {
-		Debug.Log("TEST");
-	}
-
 }
