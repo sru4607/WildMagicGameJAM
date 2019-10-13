@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Wall
   - Flame
+  - Spirit
+  - Water Volume
+  - Sphere
   layers:
   - Default
   - TransparentFX
@@ -18,8 +21,8 @@ TagManager:
   - Player
   - Spirit
   - MoveableObject
-  - 
-  - 
+  - Zone
+  - MoodLightingEffected
   - 
   - 
   - 
