@@ -22,14 +22,6 @@ public class CageControl : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (!isBroken && !isFalling && Input.GetKeyDown(KeyCode.Space))
-        {
-            Release();
-        }
-    }
 
     public void Release()
     {
@@ -37,13 +29,16 @@ public class CageControl : MonoBehaviour
         {
             isFalling = true;
             rb.useGravity = true;
+            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+            rb.freezeRotation = true;
         }
 
 
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (!isBroken)
+
+        if (collision.gameObject == floorCollider && !isBroken)
         {
             isBroken = true;
             normalCage.SetActive(false);

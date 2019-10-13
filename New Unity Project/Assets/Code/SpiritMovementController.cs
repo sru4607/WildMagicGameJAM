@@ -101,17 +101,19 @@ public class SpiritMovementController : MonoBehaviour {
         transform.Rotate(0, 180, 0);
         rb.angularVelocity = Vector3.zero;
     }
-
-    private void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.tag == "Wall") {
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Wall")
+        {
             HitWall();
         }
-        if(collision.gameObject.GetComponent<PossessableObject>() != null)
+        if (collision.gameObject.GetComponent<PossessableObject>() != null)
         {
             collision.gameObject.GetComponent<PossessableObject>().OnPossess();
-			OnPossess();
+            OnPossess();
         }
     }
+
 
 	private void SetActive(bool active) {
 		activated = active;
