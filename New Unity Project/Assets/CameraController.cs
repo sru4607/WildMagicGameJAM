@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour {
 
     public void SetPlayerPos(int ZoneNum) {
         playerPos = ZoneNum;
-        if (!spirit.GetComponent<MeshRenderer>().enabled) {
+        if (!spirit.activated) {
             MoveToPosition(ZoneNum);
         }
     }
@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour {
             transitionedTime -= Time.deltaTime;
             transform.position = toMove;
             //transform.position = Vector3.MoveTowards(transform.position, targetPos.position, TransitionSpeed * Time.deltaTime);
-            transform.rotation = Quaternion.Euler(Vector3.RotateTowards(transform.rotation.eulerAngles, targetPos.rotation.eulerAngles, 6, RotationSpeed * Time.deltaTime));
+            //transform.rotation = Quaternion.Euler(Vector3.RotateTowards(transform.rotation.eulerAngles, targetPos.rotation.eulerAngles, 6, RotationSpeed * Time.deltaTime));
             yield return null;
         }
     }
