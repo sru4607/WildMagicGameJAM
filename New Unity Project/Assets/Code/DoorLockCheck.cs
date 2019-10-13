@@ -10,9 +10,7 @@ public class DoorLockCheck : MonoBehaviour
 	private void OnCollisionStay(Collision collision) {
 		if (collision.gameObject == LockBar.gameObject) {
 			Locked = true;
-		} else {
-			Locked = false;
-		}
+		} 
 	}
 
 	private void OnCollisionExit(Collision collision) {
