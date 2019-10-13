@@ -4250,6 +4250,7 @@ MonoBehaviour:
   rb: {fileID: 608836971}
   baseSpeed: 2
   turnSpeed: 0
+  distCheck: 0
   OnActionPress:
     m_PersistentCalls:
       m_Calls:
@@ -4564,7 +4565,7 @@ PrefabInstance:
         type: 3}
       propertyPath: BlueOverlay
       value: 
-      objectReference: {fileID: 1265936515}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9eac3ce7282bdc140b16e780c5616812, type: 3}
 --- !u!4 &635302200 stripped
@@ -5627,6 +5628,7 @@ MonoBehaviour:
   rb: {fileID: 728849692}
   baseSpeed: 2
   turnSpeed: 0
+  distCheck: 0
   OnActionPress:
     m_PersistentCalls:
       m_Calls:
@@ -8376,6 +8378,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   baseSpeed: 0
   turnSpeed: 0
+  distCheck: 0
   OnActionPress:
     m_PersistentCalls:
       m_Calls:
@@ -9074,6 +9077,7 @@ MonoBehaviour:
   rb: {fileID: 1141411702}
   baseSpeed: 2
   turnSpeed: 0
+  distCheck: 0
   OnActionPress:
     m_PersistentCalls:
       m_Calls:
@@ -10164,99 +10168,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f65b497ff807d95439b38e7da2fab667, type: 3}
---- !u!1 &1265936515
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1265936519}
-  - component: {fileID: 1265936518}
-  - component: {fileID: 1265936517}
-  - component: {fileID: 1265936516}
-  m_Layer: 5
-  m_Name: Plane
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!64 &1265936516
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1265936515}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &1265936517
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1265936515}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 0
-  m_MotionVectors: 2
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: c22b0696bac193240bfd9cdd6e3d21e3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1265936518
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1265936515}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1265936519
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1265936515}
-  m_LocalRotation: {x: -0.41886714, y: 0.57074916, z: 0.4223321, w: 0.56606656}
-  m_LocalPosition: {x: -12.724692, y: 6.975096, z: -0.27257934}
-  m_LocalScale: {x: 10, y: 50.00002, z: 2.687201}
-  m_Children: []
-  m_Father: {fileID: 1444352265}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1001 &1274988000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10714,6 +10625,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   baseSpeed: 0
   turnSpeed: 0
+  distCheck: 0
   OnActionPress:
     m_PersistentCalls:
       m_Calls:
@@ -16251,7 +16163,6 @@ Transform:
   - {fileID: 181291069}
   - {fileID: 50090260}
   - {fileID: 259225226}
-  - {fileID: 1265936519}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

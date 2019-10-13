@@ -16,7 +16,6 @@ public class PossessableObject : MonoBehaviour
 
 	[Header("Moveable Object")]
 	public bool Moveable;
-    public bool UseGravity;
 	public Rigidbody rb;
 	public float baseSpeed;     // Base Speed
 	public float turnSpeed;     // Turning Speed
@@ -31,7 +30,7 @@ public class PossessableObject : MonoBehaviour
 
     public void Start()
     {
-        rb.useGravity = UseGravity;
+
     }
 
 	public void Update() {
@@ -67,12 +66,15 @@ public class PossessableObject : MonoBehaviour
         Possessed = true;
 		if (Moveable) {
 			rb.maxAngularVelocity = 0;
-			gameObject.GetComponent<Rigidbody>().useGravity = !Possessed;
 		}
         EnableShader[] shaders = GetComponentsInChildren<EnableShader>();
         foreach(EnableShader s in shaders)
         {
             s.activate();
+        }
+        if (GetComponent<EnableShader>() != null)
+        {
+            GetComponent<EnableShader>().activate();
         }
     }
     public void CheckDist()
@@ -84,12 +86,20 @@ public class PossessableObject : MonoBehaviour
             {
                 s.activateClose();
             }
+            if (GetComponent<EnableShader>() != null)
+            {
+                GetComponent<EnableShader>().activateClose();
+            }
         }
         else
         {
             foreach (EnableShader s in shaders)
             {
                 s.deactivateClose();
+            }
+            if (GetComponent<EnableShader>() != null)
+            {
+                GetComponent<EnableShader>().deactivateClose();
             }
         }
 
@@ -101,12 +111,15 @@ public class PossessableObject : MonoBehaviour
 			rb.maxAngularVelocity = float.PositiveInfinity;
 			rb.velocity = Vector3.zero;
 			rb.angularVelocity = Vector3.zero;
-			rb.useGravity = true;
 		}
         EnableShader[] shaders = GetComponentsInChildren<EnableShader>();
         foreach (EnableShader s in shaders)
         {
             s.disable();
+        }
+        if(GetComponent<EnableShader>() != null)
+        {
+            GetComponent<EnableShader>().disable();
         }
     }
 
