@@ -38,7 +38,11 @@ public class SpiritMovementController : MonoBehaviour {
         currentSpeed = baseSpeed;
         rb.velocity = Vector3.zero;
 		rb.angularDrag = float.PositiveInfinity;
-        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        SkinnedMeshRenderer[] renderers = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+        foreach(SkinnedMeshRenderer r in renderers)
+        {
+            r.enabled = false;
+        }
         gameObject.GetComponent<SphereCollider>().enabled = false;
 
     }
@@ -117,8 +121,12 @@ public class SpiritMovementController : MonoBehaviour {
 
 	private void SetActive(bool active) {
 		activated = active;
-		gameObject.GetComponent<MeshRenderer>().enabled = active;
-		gameObject.GetComponent<SphereCollider>().enabled = active;
+        SkinnedMeshRenderer[] renderers = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+        foreach (SkinnedMeshRenderer r in renderers)
+        {
+            r.enabled = active;
+        }
+        gameObject.GetComponent<SphereCollider>().enabled = active;
 		playerControl.enabled = !active;
 		playerControlChar.enabled = !active;
 		if (active)
@@ -136,8 +144,12 @@ public class SpiritMovementController : MonoBehaviour {
 	private void LeavePossess() {
 		activated = false;
 		possessing = false;
-		gameObject.GetComponent<MeshRenderer>().enabled = false;
-		gameObject.GetComponent<SphereCollider>().enabled = false;
+        SkinnedMeshRenderer[] renderers = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+        foreach (SkinnedMeshRenderer r in renderers)
+        {
+            r.enabled = false;
+        }
+        gameObject.GetComponent<SphereCollider>().enabled = false;
 		playerControl.enabled = true;
 		playerControlChar.enabled = true;
 		gameObject.transform.position = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, gameObject.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);

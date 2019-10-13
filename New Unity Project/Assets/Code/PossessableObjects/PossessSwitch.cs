@@ -20,6 +20,10 @@ public class PossessSwitch : MonoBehaviour {
         {
             toControl.GetComponent<CageControl>().Release();
         }
+        if (toControl.GetComponent<DoorControl>() != null)
+        {
+            toControl.GetComponent<DoorControl>().LeverOpen();
+        }
         lever.transform.rotation = Quaternion.Euler(-30, 0, 0);
     }
 
