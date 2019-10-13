@@ -44,8 +44,8 @@ public class SpiritMovementController : MonoBehaviour {
         {
             r.enabled = false;
         }
-        GetComponent<MeshRenderer>().enabled = false;
-        BlueOverlay.GetComponent<MeshRenderer>().enabled = false;
+        //GetComponent<MeshRenderer>().enabled = false;
+        //BlueOverlay.GetComponent<MeshRenderer>().enabled = false;
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
 
     }
@@ -61,7 +61,7 @@ public class SpiritMovementController : MonoBehaviour {
         } else {
             transform.position = GameObject.FindGameObjectWithTag("Player").transform.position;
         }
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.Q)) {
 			if (possessing) {
 				LeavePossess();
 				return;
@@ -131,8 +131,8 @@ public class SpiritMovementController : MonoBehaviour {
         {
             r.enabled = active;
         }
-        GetComponent<MeshRenderer>().enabled = active;
-        BlueOverlay.GetComponent<MeshRenderer>().enabled = active;
+        //GetComponent<MeshRenderer>().enabled = active;
+        //BlueOverlay.GetComponent<MeshRenderer>().enabled = active;
         gameObject.GetComponent<CapsuleCollider>().enabled = active;
 		playerControl.enabled = !active;
 		playerControlChar.enabled = !active;
@@ -166,8 +166,8 @@ public class SpiritMovementController : MonoBehaviour {
 	private void LeavePossess() {
 		activated = false;
 		possessing = false;
-        GetComponent<MeshRenderer>().enabled = false;
-        BlueOverlay.GetComponent<MeshRenderer>().enabled = false;
+        //GetComponent<MeshRenderer>().enabled = false;
+        //BlueOverlay.GetComponent<MeshRenderer>().enabled = false;
         SkinnedMeshRenderer[] renderers = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer r in renderers)
         {

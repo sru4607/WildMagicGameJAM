@@ -26,7 +26,7 @@ public class DoorControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!leverOpenable && Input.GetKeyDown(KeyCode.F) && !isOpen && PlayerNear() && !leftDoor.Locked && !rightDoor.Locked)
+        if (!leverOpenable && Input.GetKeyDown(KeyCode.E) && !isOpen && PlayerNear() && !leftDoor.Locked && !rightDoor.Locked)
         {
             Open();
         }

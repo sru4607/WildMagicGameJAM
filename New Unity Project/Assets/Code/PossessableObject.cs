@@ -48,7 +48,7 @@ public class PossessableObject : MonoBehaviour
 
 	public void CheckLeave()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Q))
         {
             LeavePossess();
         }
