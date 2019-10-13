@@ -111,7 +111,6 @@ public class MouseSpiritController : MonoBehaviour
         playerControl.enabled = true;
         playerControlChar.enabled = true;
         playerAnimator.SetBool("Praying", false);
-        cameraController.ResetCameraPos();
         gameObject.transform.position = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, gameObject.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
     }
 

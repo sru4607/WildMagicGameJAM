@@ -126,8 +126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   calculateDensity: 0
   density: 2.5
-  normalizedVoxelSize: 0.5
-  dragInWater: 1
+  normalizedVoxelSize: 1
+  dragInWater: 10
   angularDragInWater: 100
 --- !u!114 &8307570009571350237
 MonoBehaviour:
